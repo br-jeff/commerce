@@ -3,7 +3,7 @@ import { UserRepository } from "../../../external/database/repository/user";
 import { GenericUseCaseType } from "../../types/default-use-case";
 import { EncryptionProvider } from "../../../domain/providers/encryption-provider";
 import { UnauthorizedError } from "routing-controllers";
-import { verify, sign, SignOptions } from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken'
 import settings from "../../../external/config/settings";
 
 type Data = {

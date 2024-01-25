@@ -4,7 +4,6 @@ import settings from '../config/settings';
 import { useContainer } from 'class-validator';
 import { TsyringeAdapter } from '../config/container';
 import { container } from 'tsyringe';
-import { setupSwagger } from './swagger';
 import { databaseStartup } from '../handlers/database-startup';
 import { logger } from '../utils/logger';
 import { setupControllers } from './controllers';
@@ -15,7 +14,6 @@ app.use(express.json());
 
 useContainer(new TsyringeAdapter(container))
 setupControllers(app)
-setupSwagger(app)
 databaseStartup()
 
 app.on('error', (error) => logger.error({ error }))

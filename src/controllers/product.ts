@@ -1,11 +1,13 @@
 import { Get, JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { autoInjectable } from 'tsyringe'
-import { CreateProductUseCase } from "../../application/use-case/products/create-product-use-case";
-import { StrictBody, StrictParams } from "../../external/web/validator";
-import { CreateProductSchema } from "../schemas/product/create-product-schema";
-import { ListProductUseCase } from "../../application/use-case/products/list-product-use-case";
-import { ListProductParamsSchema } from "../schemas/product/list-product-params-schema";
+
+import { CreateProductUseCase } from "../application/use-case/products/create-product-use-case";
+import { ListProductUseCase } from "../application/use-case/products/list-product-use-case";
+import { StrictParams, StrictBody } from "../external/web/validator";
+import { ListProductParamsSchema } from "../domain/schemas/product/list-product-params-schema";
+import { CreateProductSchema } from "../domain/schemas/product/create-product-schema";
+
 
 @JsonController('/product')
 @autoInjectable()

@@ -1,12 +1,15 @@
 import { JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { autoInjectable } from 'tsyringe'
-import { Serializer, StrictBody } from "../../external/web/validator";
-import { CreateUserSchema } from "../schemas/user/create-user-schema";
-import { UserSerializer } from "../serializers/user";
-import { LoginSchema } from "../schemas/auth/login-schema";
-import { AuthUseCase } from "../../application/use-case/user/auth-use-case";
-import { CreateUserUseCase } from "../../application/use-case/user/create-user-use-case";
+
+import { Serializer, StrictBody } from "../external/web/validator";
+
+import { AuthUseCase } from "../application/use-case/user/auth-use-case";
+import { CreateUserUseCase } from "../application/use-case/user/create-user-use-case";
+import { LoginSchema } from "../domain/schemas/auth/login-schema";
+import { CreateUserSchema } from "../domain/schemas/user/create-user-schema";
+import { UserSerializer } from "../domain/serializers/user";
+
 
 @JsonController()
 @autoInjectable()

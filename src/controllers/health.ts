@@ -1,7 +1,7 @@
 import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { autoInjectable } from 'tsyringe'
-import { GetHealthUseCase } from "../../application/use-case/health/get-health-use-case";
+import { GetHealthUseCase } from "../application/use-case/health/get-health-use-case";
 
 @JsonController()
 @autoInjectable()
@@ -16,8 +16,6 @@ export class Health {
   })
   @Get('/health')
   getHealth() {
-    console.log('STARRRTTTTTSS')
-    console.log(this.getHealthUseCase)
     return this.getHealthUseCase.execute()
   }
 }

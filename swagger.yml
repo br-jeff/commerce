@@ -48,7 +48,6 @@ components:
         - inventoryId
         - price
         - sku
-        - discountId
     CreateUserSchema:
       properties:
         username:

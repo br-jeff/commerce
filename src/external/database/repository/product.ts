@@ -13,6 +13,6 @@ export class ProductRepository {
     async listProduct({ filters, pagination, trx }: DefaultListUseCaseType<FilterProductType>) {
         console.log(pagination)
         return ProductModel.query(trx)
-            .where({ filters })
+          //  .where(filters)
     }
 }

@@ -1,22 +1,25 @@
 import 'reflect-metadata';
 import express from 'express';
-import settings from '../config/settings';
-import { useContainer } from 'class-validator';
-import { TsyringeAdapter } from '../config/container';
 import { container } from 'tsyringe';
-import { databaseStartup } from '../handlers/database-startup';
-import { logger } from '../utils/logger';
+import { useContainer } from 'routing-controllers';
+import { TsyringeAdapter } from '../config/container';
+import settings from '../config/settings';
 import { setupControllers } from './controllers';
+import { setupSwagger } from './swagger';
+import { logger } from '../utils/logger';
 
 const app = express()
+setupControllers(app)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
-
 useContainer(new TsyringeAdapter(container))
-setupControllers(app)
-databaseStartup()
+
+/* setupSwagger(app) */
 
 app.on('error', (error) => logger.error({ error }))
+
 app.listen(settings.PORT, () => {
   console.log(`App is running on port ${settings.PORT}`);
 });
+
+

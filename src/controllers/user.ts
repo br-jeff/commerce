@@ -1,6 +1,6 @@
 import { JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
-import { autoInjectable } from 'tsyringe'
+import { injectable } from 'tsyringe'
 
 import { Serializer, StrictBody } from "../external/web/validator";
 
@@ -12,7 +12,7 @@ import { UserSerializer } from "../domain/serializers/user";
 
 
 @JsonController()
-@autoInjectable()
+@injectable()
 export class Health {
     constructor(
         private readonly createUserUseCase: CreateUserUseCase,

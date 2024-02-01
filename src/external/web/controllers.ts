@@ -9,7 +9,6 @@ export function setupControllers(app: Express) {
 
 function getControllers() {
     const controllerPath = path.resolve(__dirname, '../../controllers');
-    console.log({ controllerPath })
     const controllers = fs.readdirSync(controllerPath).map((fileName) =>
         `${controllerPath}/${fileName}`
     );

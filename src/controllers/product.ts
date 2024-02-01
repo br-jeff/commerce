@@ -1,6 +1,6 @@
 import { Get, JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
-import { autoInjectable } from 'tsyringe'
+import { injectable } from 'tsyringe'
 
 import { CreateProductUseCase } from "../application/use-case/products/create-product-use-case";
 import { ListProductUseCase } from "../application/use-case/products/list-product-use-case";
@@ -10,7 +10,7 @@ import { CreateProductSchema } from "../domain/schemas/product/create-product-sc
 
 
 @JsonController('/product')
-@autoInjectable()
+@injectable()
 export class Health {
     constructor(
         private readonly listProductUseCase: ListProductUseCase,

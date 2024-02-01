@@ -1,10 +1,10 @@
 import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
-import { autoInjectable } from 'tsyringe'
+import {  injectable } from 'tsyringe'
 import { GetHealthUseCase } from "../application/use-case/health/get-health-use-case";
 
 @JsonController()
-@autoInjectable()
+@injectable()
 export class Health {
   constructor(
     private readonly getHealthUseCase: GetHealthUseCase

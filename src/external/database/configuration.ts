@@ -60,10 +60,6 @@ export class DatabaseConfiguration {
         Model.knex(this.knex)
     }
 
-    knexInstance() {
-        return this.knex
-    }
-
     async migrate() {
         logger.info('Running Migrations')
         await this.knex.migrate.latest()
@@ -71,9 +67,12 @@ export class DatabaseConfiguration {
     }
 
     async seed() {
-        logger.info('Running Seeds')
-        await this.knex.seed.run()
-        logger.info('Seeds were successful!');
+        const admin = await this.knex.from('users').where({ username: 'admin' })
+        if(!admin) {
+            logger.info('Running Seeds')
+            await this.knex.seed.run()
+            logger.info('Seeds were successful!');
+        }
     }
 
     async rollback() {

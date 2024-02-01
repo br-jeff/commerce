@@ -13,7 +13,7 @@ import { UserSerializer } from "../domain/serializers/user";
 
 @JsonController()
 @injectable()
-export class Health {
+export class User {
     constructor(
         private readonly createUserUseCase: CreateUserUseCase,
         private readonly authUseCase: AuthUseCase

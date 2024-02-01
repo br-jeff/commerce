@@ -11,7 +11,7 @@ import { CreateProductSchema } from "../domain/schemas/product/create-product-sc
 
 @JsonController('/product')
 @injectable()
-export class Health {
+export class Product {
     constructor(
         private readonly listProductUseCase: ListProductUseCase,
         private readonly createProductUseCase: CreateProductUseCase

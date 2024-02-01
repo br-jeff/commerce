@@ -126,6 +126,18 @@ info:
   description: This project is amateur eccommerce
 openapi: 3.0.0
 paths:
+  /category:
+    get:
+      operationId: Category.list
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: List Category
+      tags:
+        - Category
+      description: This route list products
   /health:
     get:
       operationId: Health.getHealth
@@ -140,7 +152,7 @@ paths:
       description: This is to check if server is running
   /product:
     get:
-      operationId: Health.listProducts
+      operationId: Product.listProducts
       responses:
         "200":
           content:
@@ -148,10 +160,10 @@ paths:
           description: Successful response
       summary: List products
       tags:
-        - Health
+        - Product
       description: This route list products
     post:
-      operationId: Health.create
+      operationId: Product.create
       requestBody:
         content:
           application/json:
@@ -166,11 +178,11 @@ paths:
           description: Successful response
       summary: Create products
       tags:
-        - Health
+        - Product
       description: This route create a product
   /register:
     post:
-      operationId: Health.create
+      operationId: User.create
       requestBody:
         content:
           application/json:
@@ -187,11 +199,11 @@ paths:
           description: ""
       summary: Create user
       tags:
-        - Health
+        - User
       description: Create user
   /login:
     post:
-      operationId: Health.login
+      operationId: User.login
       requestBody:
         content:
           application/json:
@@ -208,7 +220,7 @@ paths:
           description: ""
       summary: Login
       tags:
-        - Health
+        - User
       description: Login route
 servers:
   - url: http://localhost:8080

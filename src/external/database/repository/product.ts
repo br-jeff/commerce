@@ -10,9 +10,14 @@ export class ProductRepository {
             .insertAndFetch(data)
     }
 
-    async listProduct({ filters, pagination, trx }: DefaultListUseCaseType<FilterProductType>) {
-        console.log(pagination)
-        return ProductModel.query(trx)
-          //  .where(filters)
+    async list({ filters, pagination, trx }: DefaultListUseCaseType<FilterProductType>) {
+        const { page, size } = pagination 
+        return ProductModel
+            .query(trx)
+            .modify( (builder) => { 
+                //pagination ?? 
+                builder.page(page, size)
+            })
+         // .where(filters)
     }
 }

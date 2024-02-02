@@ -18,7 +18,7 @@ export class Category {
         description: 'This route list products'
     })
     @Get()
-    list(@StrictParams() filters: ListProductParamsSchema) {
-        return this.listCategoryUseCase.execute({ filters, pagination: { limit: 1, offset: 0 } })
+    list(@StrictParams() pagination: ListProductParamsSchema) {
+        return this.listCategoryUseCase.execute({ pagination  })
     }
 }

@@ -85,8 +85,18 @@ components:
     ListProductParamsSchema:
       properties:
         id:
+          format: uuid
           type: string
+        page:
+          minimum: 1
+          type: number
+        size:
+          type: number
+          minimum: 1
       type: object
+      required:
+        - page
+        - size
     LoginSchema:
       properties:
         username:
@@ -97,6 +107,18 @@ components:
       required:
         - username
         - password
+    PaginationSchema:
+      properties:
+        page:
+          minimum: 1
+          type: number
+        size:
+          type: number
+          minimum: 1
+      type: object
+      required:
+        - page
+        - size
     UserAdressSchema:
       properties:
         addressLine1:
@@ -153,6 +175,19 @@ paths:
   /product:
     get:
       operationId: Product.listProducts
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            minimum: 1
+            type: number
+        - in: query
+          name: size
+          required: true
+          schema:
+            type: number
+            minimum: 1
       responses:
         "200":
           content:

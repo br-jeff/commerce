@@ -11,7 +11,6 @@ export class CategoryRepository {
     }
 
     async list({ filters, pagination, trx }: DefaultListUseCaseType<FilterProductType>) {
-        console.log(pagination)
         return CategoryModel.query(trx)
           //  .where(filters)
     }

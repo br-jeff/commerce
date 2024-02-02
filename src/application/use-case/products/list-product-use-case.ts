@@ -9,6 +9,6 @@ export class ListProductUseCase {
     ) { }
 
     execute({ filters, pagination, trx }: DefaultListUseCaseType<FilterProductType>) {
-        return this.productRepository.listProduct({ filters, pagination, trx })
+        return this.productRepository.list({ filters, pagination, trx })
     }
 }

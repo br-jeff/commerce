@@ -4,10 +4,9 @@ import { injectable } from 'tsyringe'
 
 import { CreateProductUseCase } from "../application/use-case/products/create-product-use-case";
 import { ListProductUseCase } from "../application/use-case/products/list-product-use-case";
-import { StrictParams, StrictBody } from "../external/web/validator";
-import { ListProductParamsSchema } from "../domain/schemas/product/list-product-params-schema";
+import { StrictBody, StrictQueryParams } from "../external/web/validator";
 import { CreateProductSchema } from "../domain/schemas/product/create-product-schema";
-
+import { PaginationSchema } from "../domain/schemas";
 
 @JsonController('/product')
 @injectable()
@@ -22,8 +21,8 @@ export class Product {
         description: 'This route list products'
     })
     @Get()
-    listProducts(@StrictParams() filters: ListProductParamsSchema) {
-        return this.listProductUseCase.execute({ filters, pagination: { limit: 1, offset: 0 } })
+    listProducts(@StrictQueryParams() pagination: PaginationSchema) {
+        return this.listProductUseCase.execute({ pagination })
     }
 
     @OpenAPI({

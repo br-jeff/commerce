@@ -1,7 +1,8 @@
-import { IsOptional, IsString, IsUUID } from "class-validator"
+import { IsOptional, IsUUID } from "class-validator"
+import { PaginationSchema } from ".."
 
-export class ListProductParamsSchema {
-    @IsString()
+export class ListProductParamsSchema extends PaginationSchema {  
+    @IsUUID()
     @IsOptional()
     id?: string
 }

@@ -5,6 +5,7 @@ import { EncryptionProvider } from "../../../domain/providers/encryption-provide
 import { UserEntity } from "../../../domain/entities/user";
 import { UserAddressRepository } from "../../../external/database/repository/user-address";
 import { UserAddressEntity } from "../../../domain/entities/user_address";
+import { BadRequestError } from "routing-controllers";
 
 type UserTypeWithAdress = UserEntity & { userAddress: UserAddressEntity }
 
@@ -18,6 +19,12 @@ export class CreateUserUseCase {
 
     async execute({ data, trx }: DefaultCreateUseCaseType<UserTypeWithAdress>) {
         const { username, firstName, lastName, telephone, mobile,  email, password } = data
+        const hasUser = await this.userRepository.getByEmailAndUsername({ email, username })
+
+        if(hasUser) {
+            throw new BadRequestError('email or username is already taken')
+        }
+
         const user = {
             username,
             firstName,

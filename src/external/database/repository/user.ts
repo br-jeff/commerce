@@ -3,11 +3,21 @@ import { UserModel } from '../models/user'
 import { DefaultCreateUseCaseType } from '../../../application/types/default-use-case'
 import { UserEntity } from '../../../domain/entities/user'
 
+type Email = { email: string, trx?: Transaction }
+
 export class UserRepository {
-    async getUserByEmail({ email, trx }: { email: string, trx?: Transaction }) {
+    async getUserByEmail({ email, trx } : Email ) {
         return UserModel
             .query(trx)
             .where({ email })
+            .first()
+    }
+
+    async getByEmailAndUsername({ email, username, trx }: Email & { username: string }) {
+        return UserModel
+            .query(trx)
+            .where({ email })
+            .orWhere({ username })
             .first()
     }
 

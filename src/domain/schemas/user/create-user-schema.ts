@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmptyObject, IsObject, IsString, IsUUID, ValidateNested } from "class-validator"
+import { IsDefined, IsNotEmptyObject, IsObject, IsString, ValidateNested } from "class-validator"
 import { UserAddressEntity } from "../../../domain/entities/user_address"
 import { Type } from "class-transformer"
 
@@ -9,10 +9,10 @@ export class CreateUserSchema {
     @IsString()
     firstName: string
 
-    @IsUUID()
+    @IsString()
     lastName: string
 
-    @IsUUID()
+    @IsString()
     password: string
 
     @IsString()

@@ -17,17 +17,21 @@ export class CreateUserUseCase {
     ) { }
 
     async execute({ data, trx }: DefaultCreateUseCaseType<UserTypeWithAdress>) {
+        const { username, firstName, lastName, telephone, mobile,  email, password } = data
         const user = {
-            username: data.username,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            telephone: data.telephone,
-            mobile: data.mobile,
-            password: await this.encryptionProvider.createHash(data.password),
-            email: data.email,
+            username,
+            firstName,
+            lastName,
+            telephone,
+            mobile,
+            password: await this.encryptionProvider.createHash(password),
+            email,
         }
 
-        this.userRepository.createUser({ data: user, trx })
-        this.userAddressRepository.createAddress({ data: data.userAddress, trx })
+        const newUser = await this.userRepository.createUser({ data: user, trx })
+        const address = {...data.userAddress, userId: newUser.id }
+        await this.userAddressRepository.createAddress({ data: address, trx })
+
+        return {...user, userAddress: data.userAddress }
     }
 }

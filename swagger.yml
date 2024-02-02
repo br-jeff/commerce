@@ -14,6 +14,12 @@ components:
           type: string
         email:
           type: string
+        userAddress:
+          $ref: "#/components/schemas/UserAddressEntity"
+          type: object
+          minProperties: 1
+          not:
+            type: "null"
       type: object
       required:
         - username
@@ -21,6 +27,7 @@ components:
         - lastName
         - telephone
         - email
+        - userAddress
     CreateProductSchema:
       properties:
         name:
@@ -55,10 +62,8 @@ components:
         firstName:
           type: string
         lastName:
-          format: uuid
           type: string
         password:
-          format: uuid
           type: string
         telephone:
           type: string

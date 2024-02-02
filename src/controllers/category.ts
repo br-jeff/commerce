@@ -2,9 +2,9 @@ import { Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 
-import { StrictParams } from "../external/web/validator";
-import { ListProductParamsSchema } from "../domain/schemas/product/list-product-params-schema";
+import { StrictQueryParams } from "../external/web/validator";
 import { ListCategoryUseCase } from "../application/use-case/category/list-category-use-case";
+import { PaginationSchema } from "../domain/schemas";
 
 @JsonController('/category')
 @injectable()
@@ -15,10 +15,10 @@ export class Category {
 
     @OpenAPI({
         summary: 'List Category',
-        description: 'This route list products'
+        description: 'This route list category'
     })
     @Get()
-    list(@StrictParams() pagination: ListProductParamsSchema) {
-        return this.listCategoryUseCase.execute({ pagination  })
+    list(@StrictQueryParams() pagination: PaginationSchema) {
+        return this.listCategoryUseCase.execute({ pagination })
     }
 }

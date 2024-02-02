@@ -82,21 +82,6 @@ components:
         - mobile
         - email
         - userAddress
-    ListProductParamsSchema:
-      properties:
-        id:
-          format: uuid
-          type: string
-        page:
-          minimum: 1
-          type: number
-        size:
-          type: number
-          minimum: 1
-      type: object
-      required:
-        - page
-        - size
     LoginSchema:
       properties:
         username:
@@ -151,6 +136,19 @@ paths:
   /category:
     get:
       operationId: Category.list
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            minimum: 1
+            type: number
+        - in: query
+          name: size
+          required: true
+          schema:
+            type: number
+            minimum: 1
       responses:
         "200":
           content:
@@ -159,7 +157,7 @@ paths:
       summary: List Category
       tags:
         - Category
-      description: This route list products
+      description: This route list category
   /health:
     get:
       operationId: Health.getHealth

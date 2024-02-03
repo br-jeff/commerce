@@ -1,17 +1,18 @@
 import { UserModel } from "../models/user";
 import { logger } from "../../utils/logger";
-import { UserEntity } from "../../../domain/entities/user";
 import { DefaultModelOmit } from "../../../application/types/default-model-omit";
 import { UserAddressEntity } from "../../../domain/entities/user_address";
 import { faker } from "@faker-js/faker";
 import { UserAddressModel } from "../models/user-address";
+import { EncryptionProvider } from "../../../domain/providers/encryption-provider";
+import { container } from "tsyringe";
 
 export async function seed() {
     logger.info('Start Seeeds')
     const user = {
         id: '8d887c80-4ddb-4ae1-9c3b-b2d11bda884e',
         username: 'admin',
-        password: 'teste',
+        password: await container.resolve(EncryptionProvider).createHash('password123'),
         firstName: 'Super',
         lastName: 'Admin',
         email: 'admin@admin.com',

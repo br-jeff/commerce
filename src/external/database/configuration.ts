@@ -69,7 +69,7 @@ export class DatabaseConfiguration {
     async seed() {
         try {
             const admin = await this.knex.from('users').where({ username: 'admin' })
-            if(!admin) {
+            if(!admin.length) {
                 logger.info('Running Seeds')
                 await this.knex.seed.run()
                 logger.info('Seeds were successful!');

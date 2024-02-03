@@ -34,7 +34,6 @@ export class User {
         description: 'Login route'
     })
     @Post('/login')
-    @Serializer(UserSerializer)
     login(@StrictBody() data: LoginSchema) {
         return this.authUseCase.execute({ data })
     }

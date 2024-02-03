@@ -252,10 +252,8 @@ paths:
       responses:
         "200":
           content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserSerializer"
-          description: ""
+            application/json: {}
+          description: Successful response
       summary: Login
       tags:
         - User

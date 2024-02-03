@@ -17,10 +17,8 @@ useContainer(new TsyringeAdapter(container))
 
 databaseStart().then(() => setupSwagger(app))
 
-
 app.on('error', (error) => logger.error({ error }))
 
 app.listen(settings.PORT, async () => {
-
-  console.log(`App is running on port ${settings.PORT}`);
+  logger.info(`App is running on port ${settings.PORT}`);
 });

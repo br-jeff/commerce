@@ -1,4 +1,4 @@
-import { Get, JsonController, Post } from "routing-controllers";
+import { Authorized, Get, JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 
@@ -20,6 +20,8 @@ export class Product {
         summary: 'List products',
         description: 'This route list products'
     })
+
+    @Authorized()
     @Get()
     listProducts(@StrictQueryParams() pagination: PaginationSchema) {
         return this.listProductUseCase.execute({ pagination })
@@ -29,6 +31,7 @@ export class Product {
         summary: 'Create products',
         description: 'This route create a product'
     })
+    @Authorized()
     @Post()
     create(@StrictBody() data: CreateProductSchema) {
         return this.createProductUseCase.execute({ data })

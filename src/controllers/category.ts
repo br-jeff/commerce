@@ -1,4 +1,4 @@
-import { Get, JsonController } from "routing-controllers";
+import { Authorized, Get, JsonController } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 
@@ -18,6 +18,7 @@ export class Category {
         description: 'This route list category'
     })
     @Get()
+    @Authorized()
     list(@StrictQueryParams() pagination: PaginationSchema) {
         return this.listCategoryUseCase.execute({ pagination })
     }

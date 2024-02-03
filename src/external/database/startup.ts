@@ -15,4 +15,4 @@ class StartupDatabase {
     }
 }
 
-export default () => container.resolve(StartupDatabase).start()
+export default async () => container.resolve(StartupDatabase).start()

@@ -14,12 +14,13 @@ setupControllers(app)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 useContainer(new TsyringeAdapter(container))
-databaseStart()
 
-setupSwagger(app)
+databaseStart().then(() => setupSwagger(app))
+
 
 app.on('error', (error) => logger.error({ error }))
 
-app.listen(settings.PORT, () => {
+app.listen(settings.PORT, async () => {
+
   console.log(`App is running on port ${settings.PORT}`);
 });

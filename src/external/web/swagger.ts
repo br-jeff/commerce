@@ -17,6 +17,7 @@ import { container } from 'tsyringe'
 import { UserRepository } from '../database/repository/user'
 import { sign } from 'jsonwebtoken'
 import settings from '../config/settings'
+import { logger } from '../utils/logger'
 export async function setupSwagger(
     app: Express,
 ) {
@@ -56,17 +57,17 @@ export async function setupSwagger(
 
     fs.writeFileSync(path.resolve('swagger.yml'), YAML.stringify(spec))
 
-    const userRepository = container.resolve(UserRepository)
-    const user = await userRepository.findById({ id: '8d887c80-4ddb-4ae1-9c3b-b2d11bda884e' })
+    const user = await getUser()
 
     const serveInstance = setup(spec, {
         swaggerOptions: {
             persistAuthorization: true,
             authToken: user ? getAuthIntecepetor({ id: user.id, username: user.username }) : '',
             requestInterceptor: (request: Request) => {
-                request.headers.Authorization = `Bearer ${(window as any).ui.getConfigs().authToken
-                    }`
-                return request
+                if(user) {
+                    request.headers.Authorization = `Bearer ${(window as any).ui.getConfigs().authToken}`
+                    return request
+                }
             },
         },
     })
@@ -83,4 +84,16 @@ function getAuthIntecepetor(payload: { id: string, username: string }) {
             expiresIn: '20m'
         }
     )
+}
+
+
+async function getUser() {
+    try {
+        const userRepository = container.resolve(UserRepository)
+        const user = await userRepository.findById({ id: '8d887c80-4ddb-4ae1-9c3b-b2d11bda884e' })
+        return user
+    } catch(err) {
+        logger.error('error get user from swagger')
+        return null
+    }
 }

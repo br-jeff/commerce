@@ -67,11 +67,15 @@ export class DatabaseConfiguration {
     }
 
     async seed() {
-        const admin = await this.knex.from('users').where({ username: 'admin' })
-        if(!admin) {
-            logger.info('Running Seeds')
-            await this.knex.seed.run()
-            logger.info('Seeds were successful!');
+        try {
+            const admin = await this.knex.from('users').where({ username: 'admin' })
+            if(!admin) {
+                logger.info('Running Seeds')
+                await this.knex.seed.run()
+                logger.info('Seeds were successful!');
+            }
+        } catch(err) {
+            logger.error(`Error on seeds: ${err} `)
         }
     }
 

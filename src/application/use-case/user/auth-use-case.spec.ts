@@ -10,7 +10,6 @@ describe('AuthUseCase', () => {
         const sut = container.resolve(AuthUseCase)
         const data = { username: 'Admin', password: 'HASHABCDE' }
 
-
         expect(sut.execute({ data })).rejects.toThrow(UnauthorizedError)
     })
 })

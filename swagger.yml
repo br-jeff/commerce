@@ -28,6 +28,25 @@ components:
         - telephone
         - email
         - userAddress
+    CreatUserAddressSchema:
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+      type: object
+      required:
+        - addressLine1
+        - addressLine2
+        - city
+        - postalCode
+        - country
     CreateProductSchema:
       properties:
         name:
@@ -163,6 +182,24 @@ paths:
       tags:
         - Address
       description: This route list User Address
+    post:
+      operationId: Address.createUserAddresses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatUserAddressSchema"
+        description: CreatUserAddressSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Create User Address
+      tags:
+        - Address
+      description: This route create User Address
   /category:
     get:
       operationId: Category.list

@@ -5,8 +5,7 @@ import { UserAdressFilterUseCase } from "../../types/user-address-filter-use-cas
 
 @injectable()
 export class ListUserAddressUseCase {
-    constructor(private readonly userAddressRepository: UserAddressRepository
-    ) { }
+    constructor(private readonly userAddressRepository: UserAddressRepository) { }
 
     async execute({ filters, pagination, trx }: DefaultListUseCaseType<UserAdressFilterUseCase>) {
         return this.userAddressRepository.listUserAddress({ filters, pagination, trx })

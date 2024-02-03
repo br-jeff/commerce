@@ -5,8 +5,7 @@ import { UserAddressEntity } from "../../../domain/entities/user_address";
 
 @injectable()
 export class CreateUserAddressUseCase {
-    constructor(private readonly userAddressRepository: UserAddressRepository
-    ) { }
+    constructor(private readonly userAddressRepository: UserAddressRepository) { }
 
     execute({ data, trx }: DefaultCreateUseCaseType<UserAddressEntity>) {
         return this.userAddressRepository.createAddress({ data, trx })

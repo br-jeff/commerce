@@ -7,9 +7,12 @@ This project is a simple e-commerce application. You can access the API document
 Default port will be 8080
 
 To start a project, you should follow the `Requirements` section and begin by running:
+
 ```bash
-docker compose up 
+docker compose up
 ```
+
+you can import postman-collection.json on this project.
 
 ## Requirements
 
@@ -20,3 +23,4 @@ Before you get started with this project, please make sure you have the followin
 
 ```bash
 docker network create -d bridge my-bridge-network
+```

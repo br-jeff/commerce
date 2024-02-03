@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "10d826c0-a424-4df5-a269-05f77f4fe615",
+		"name": "br-jeff-ecommerce-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27941686"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"teste  name\",\n    \"price\": 123,\n    \"descr\": \"Product name teste\",\n    \"sku\": \"23432\",\n    \"categoryId\": \"51b42a22-05c6-4a3d-a8b6-96d63ad5dd59\",\n    \"inventoryId\": \"0b80e7b4-cebf-45d8-a2a2-56767a821bc2\"\n \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiOGQ4ODdjODAtNGRkYi00YWUxLTljM2ItYjJkMTFiZGE4ODRlIiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJpYXQiOjE3MDY5ODMzNzcsImV4cCI6MTcwNjk4NDU3N30.OKqJE1_pe_FDRXJm5qEmnwzI7flDF_aYqb5L2kXCeYU",
+								"type": "text"
+							},
+							{
+								"key": "size",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product?page=1&size=12",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"jefferson\",\n    \"firstName\": \"jefferson\",\n    \"lastName\": \"ferreira\",\n    \"telephone\": \"111111111\",\n    \"mobile\": \"111111111\",\n    \"password\": \"senha123\",\n    \"email\": \"dasdsad@dasdad4s.com\",\n    \"userAddress\": {\n        \"addressLine1\": \"name street one\",\n        \"addressLine2\": \"name street two\",\n        \"city\": \"São Paulo\",\n        \"postalCode\": \"0123490\",\n        \"country\": \"Brazil\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "address",
+			"item": [
+				{
+					"name": "address ( with autologin)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var requestConfig = {",
+									"    method: 'POST',",
+									"    url: 'localhost:8080/login',",
+									"    headers: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: {",
+									"            \"username\": \"admin\",",
+									"            \"password\": \"password123\"",
+									"            } ,",
+									"        options: {",
+									"            raw: {",
+									"                language: 'json'",
+									"            }",
+									"     }",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(requestConfig, function (error, response) {",
+									"    if (response && response.code === 200) {",
+									"        var responseData = response.json();",
+									"        console.log({  responseData })",
+									"        var token = responseData.acessToken;",
+									"        pm.variables.set(\"tokenbr-jeff\", `Basic ${token}`)",
+									"",
+									"         pm.request.headers.upsert({",
+									"            key: 'Authorization',",
+									"            value: `Barear ${token}`",
+									"           //  value: `Basic ${Buffer.from(token, 'base64').toString('ascii')}`",
+									"        });",
+									"",
+									"        console.log('Token obtido com sucesso:', token);",
+									"    } else {",
+									"        console.error('Falha ao obter o token. Código de resposta:', response ? response.code : 'Resposta nula ou indefinida');",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "tokenbr-jeff",
+								"value": "{{tokenbr-jeff}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/address?size=12&page=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"address"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "12"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "address ( with autologin)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var requestConfig = {",
+									"    method: 'POST',",
+									"    url: 'localhost:8080/login',",
+									"    headers: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: {",
+									"            \"username\": \"admin\",",
+									"            \"password\": \"password123\"",
+									"            } ,",
+									"        options: {",
+									"            raw: {",
+									"                language: 'json'",
+									"            }",
+									"     }",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(requestConfig, function (error, response) {",
+									"    if (response && response.code === 200) {",
+									"        var responseData = response.json();",
+									"        console.log({  responseData })",
+									"        var token = responseData.acessToken;",
+									"        pm.variables.set(\"tokenbr-jeff\", `Basic ${token}`)",
+									"",
+									"         pm.request.headers.upsert({",
+									"            key: 'Authorization',",
+									"            value: `Barear ${token}`",
+									"           //  value: `Basic ${Buffer.from(token, 'base64').toString('ascii')}`",
+									"        });",
+									"",
+									"        console.log('Token obtido com sucesso:', token);",
+									"    } else {",
+									"        console.error('Falha ao obter o token. Código de resposta:', response ? response.code : 'Resposta nula ou indefinida');",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"addressLine1\": \"addressLine1\",\n    \"addressLine2\": \"addressLine2\",\n    \"city\": \"Somewhere\",\n    \"postalCode\": \"123435\",\n    \"country\": \"Country\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/address?page=1&size=12",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"address"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"teste  name\",\n    \"price\": 123\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

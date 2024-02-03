@@ -4,16 +4,32 @@ import { DefaultCreateUseCaseType } from '../../../application/types/default-use
 import { UserEntity } from '../../../domain/entities/user'
 
 type Email = { email: string, trx?: Transaction }
+type Username = { username: string, trx?: Transaction }
 
 export class UserRepository {
-    async getUserByEmail({ email, trx } : Email ) {
+    async getUserByEmail({ email, trx }: Email) {
         return UserModel
             .query(trx)
             .where({ email })
             .first()
     }
 
+    async getUserByUsername({ username, trx }: Username) {
+        return UserModel
+            .query(trx)
+            .where({ username })
+            .first()
+    }
+
     async getByEmailAndUsername({ email, username, trx }: Email & { username: string }) {
+        return UserModel
+            .query(trx)
+            .where({ email })
+            .where({ username })
+            .first()
+    }
+
+    async checkEmailAndUsername({ email, username, trx }: Email & { username: string }) {
         return UserModel
             .query(trx)
             .where({ email })

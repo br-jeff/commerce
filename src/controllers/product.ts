@@ -1,4 +1,4 @@
-import { Authorized, Get, JsonController, Post } from "routing-controllers";
+import { Authorized, CurrentUser, Get, JsonController, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 
@@ -7,6 +7,7 @@ import { ListProductUseCase } from "../application/use-case/products/list-produc
 import { StrictBody, StrictQueryParams } from "../external/web/validator";
 import { CreateProductSchema } from "../domain/schemas/product/create-product-schema";
 import { PaginationSchema } from "../domain/schemas";
+import { UserEntity } from "../domain/entities/user";
 
 @JsonController('/product')
 @injectable()
@@ -31,7 +32,8 @@ export class Product {
         description: 'This route create a product'
     })
     @Post()
-    create(@StrictBody() data: CreateProductSchema) {
-        return this.createProductUseCase.execute({ data })
+    @Authorized()
+    create(@StrictBody() data: CreateProductSchema, @CurrentUser() user: UserEntity) {
+        return this.createProductUseCase.execute({ data, user })
     }
 }

@@ -7,21 +7,20 @@ import { UserAddressRepository } from "../../../external/database/repository/use
 import { UserAddressEntity } from "../../../domain/entities/user_address";
 import { BadRequestError } from "routing-controllers";
 
-type UserTypeWithAdress = UserEntity & { userAddress: UserAddressEntity }
+type UserTypeWithAddress = UserEntity & { userAddress: UserAddressEntity }
 
 @injectable()
 export class CreateUserUseCase {
     constructor(
         private readonly userRepository: UserRepository,
         private readonly userAddressRepository: UserAddressRepository,
-        private readonly encryptionProvider: EncryptionProvider
-    ) { }
+        private readonly encryptionProvider: EncryptionProvider) { }
 
-    async execute({ data, trx }: DefaultCreateUseCaseType<UserTypeWithAdress>) {
-        const { username, firstName, lastName, telephone, mobile,  email, password } = data
-        const hasUser = await this.userRepository.getByEmailAndUsername({ email, username })
+    async execute({ data, trx }: DefaultCreateUseCaseType<UserTypeWithAddress>) {
+        const { username, firstName, lastName, telephone, mobile, email, password } = data
+        const hasUser = await this.userRepository.checkEmailAndUsername({ email, username })
 
-        if(hasUser) {
+        if (hasUser) {
             throw new BadRequestError('email or username is already taken')
         }
 
@@ -36,9 +35,9 @@ export class CreateUserUseCase {
         }
 
         const newUser = await this.userRepository.createUser({ data: user, trx })
-        const address = {...data.userAddress, userId: newUser.id }
+        const address = { ...data.userAddress, userId: newUser.id }
         await this.userAddressRepository.createAddress({ data: address, trx })
 
-        return {...user, userAddress: data.userAddress }
+        return { ...user, userAddress: data.userAddress }
     }
 }

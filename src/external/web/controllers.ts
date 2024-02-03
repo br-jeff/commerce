@@ -20,9 +20,9 @@ function getControllers() {
 }
 
 async function authorizationChecker(action: Action, _: string[]) {
-    const token = action.request.headers.authorization
-    const tokenProvider = container.resolve(JWTProvider)
     try {
+        const tokenProvider = container.resolve(JWTProvider)
+        const token = action.request.headers.authorization.split(' ')[1]
         const isValid = tokenProvider.verifyToken(token)
         return !!isValid
     } catch (err) {
@@ -31,9 +31,9 @@ async function authorizationChecker(action: Action, _: string[]) {
 }
 
 async function currentUserChecker(action: Action) {
-    const token = action.request.headers.authorization
-    const tokenProvider = container.resolve(JWTProvider)
     try {
+        const tokenProvider = container.resolve(JWTProvider)
+        const token = action.request.headers.authorization.split(' ')[1]
         const tokenData = tokenProvider.verifyToken(token)
         const userId = tokenData.user.id
         return container.resolve(UserRepository).findById({ id: userId })

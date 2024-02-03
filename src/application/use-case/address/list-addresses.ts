@@ -9,8 +9,6 @@ export class ListUserAddressUseCase {
     ) { }
 
     async execute({ filters, pagination, trx }: DefaultListUseCaseType<UserAdressFilterUseCase>) {
-        const t = await this.userAddressRepository.listUserAddress({ filters, pagination, trx })
-        console.log({ t, pagination })
-        return t
+        return this.userAddressRepository.listUserAddress({ filters, pagination, trx })
     }
 }

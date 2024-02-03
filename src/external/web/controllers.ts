@@ -1,10 +1,12 @@
-import { useExpressServer } from 'routing-controllers';
+import { Action, useExpressServer } from 'routing-controllers';
 import { Express } from 'express'
 import path from 'path';
 import fs from 'fs';
+import { container } from 'tsyringe';
+import { JWTProvider } from '../../domain/providers/jwt-provider';
 
 export function setupControllers(app: Express) {
-    useExpressServer(app, { controllers: getControllers() })
+    useExpressServer(app, { controllers: getControllers(), authorizationChecker: authDecorator })
 }
 
 function getControllers() {
@@ -14,4 +16,15 @@ function getControllers() {
     );
 
     return controllers
+}
+
+async function authDecorator(action: Action, _: string[]) {
+    const token = action.request.headers.authorization
+    const tokenProvider = container.resolve(JWTProvider)
+    try {
+        const isValid = tokenProvider.verifyToken(token)
+        return !!isValid
+    } catch (err) {
+        return false
+    }
 }

@@ -1,5 +1,5 @@
 import settings from '../../external/config/settings'
-import { sign } from 'jsonwebtoken'
+import { sign, verify } from 'jsonwebtoken'
 
 type AcessTokenData = {
     id: string
@@ -19,5 +19,8 @@ export class JWTProvider {
         )
     }
 
+    verifyToken(token: string) {
+        return verify(token, settings.ACESS_TOKEN_SECRET)
+    }
 
 }

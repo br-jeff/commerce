@@ -1,15 +1,15 @@
-import { Transaction } from 'objection'
-import { UserModel } from '../models/user'
-import { DefaultCreateUseCaseType } from '../../../application/types/default-use-case'
+import { DefaultCreateUseCaseType, DefaultListUseCaseType } from '../../../application/types/default-use-case'
 import { UserAddressModel } from '../models/user-address'
 import { UserAddressEntity } from '../../../domain/entities/user_address'
+import { UserAdressFilterUseCase } from '../../../application/types/user-address-filter-use-case'
 
 export class UserAddressRepository {
-    async getUserByEmail({ email, trx }: { email: string, trx?: Transaction }) {
-        return UserModel
+    async listUserAddress({ filters, pagination, trx }: DefaultListUseCaseType<UserAdressFilterUseCase>) {
+        const { page, size } = pagination
+        console.log({ filters })
+        return UserAddressModel
             .query(trx)
-            .where({ email })
-            .first()
+            .page(page - 1, size)
     }
 
     async createAddress({ data, trx }: DefaultCreateUseCaseType<UserAddressEntity>) {
@@ -17,5 +17,4 @@ export class UserAddressRepository {
             .query(trx)
             .insertAndFetch(data)
     }
-
 }

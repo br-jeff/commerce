@@ -21,7 +21,6 @@ export class Product {
         description: 'This route list products'
     })
 
-    @Authorized()
     @Get()
     listProducts(@StrictQueryParams() pagination: PaginationSchema) {
         return this.listProductUseCase.execute({ pagination })
@@ -31,7 +30,6 @@ export class Product {
         summary: 'Create products',
         description: 'This route create a product'
     })
-    @Authorized()
     @Post()
     create(@StrictBody() data: CreateProductSchema) {
         return this.createProductUseCase.execute({ data })

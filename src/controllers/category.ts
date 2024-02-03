@@ -18,7 +18,6 @@ export class Category {
         description: 'This route list category'
     })
     @Get()
-    @Authorized()
     list(@StrictQueryParams() pagination: PaginationSchema) {
         return this.listCategoryUseCase.execute({ pagination })
     }

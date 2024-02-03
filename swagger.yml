@@ -138,6 +138,31 @@ info:
   description: This project is amateur eccommerce
 openapi: 3.0.0
 paths:
+  /address:
+    get:
+      operationId: Address.listUserAddresses
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            minimum: 1
+            type: number
+        - in: query
+          name: size
+          required: true
+          schema:
+            type: number
+            minimum: 1
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: List User Address
+      tags:
+        - Address
+      description: This route list User Address
   /category:
     get:
       operationId: Category.list

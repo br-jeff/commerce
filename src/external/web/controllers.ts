@@ -4,9 +4,10 @@ import path from 'path';
 import fs from 'fs';
 import { container } from 'tsyringe';
 import { JWTProvider } from '../../domain/providers/jwt-provider';
+import { UserRepository } from '../database/repository/user';
 
 export function setupControllers(app: Express) {
-    useExpressServer(app, { controllers: getControllers(), authorizationChecker: authDecorator })
+    useExpressServer(app, { controllers: getControllers(), authorizationChecker, currentUserChecker })
 }
 
 function getControllers() {
@@ -18,7 +19,7 @@ function getControllers() {
     return controllers
 }
 
-async function authDecorator(action: Action, _: string[]) {
+async function authorizationChecker(action: Action, _: string[]) {
     const token = action.request.headers.authorization
     const tokenProvider = container.resolve(JWTProvider)
     try {
@@ -26,5 +27,17 @@ async function authDecorator(action: Action, _: string[]) {
         return !!isValid
     } catch (err) {
         return false
+    }
+}
+
+async function currentUserChecker(action: Action) {
+    const token = action.request.headers.authorization
+    const tokenProvider = container.resolve(JWTProvider)
+    try {
+        const tokenData = tokenProvider.verifyToken(token)
+        const userId = tokenData.user.id
+        return container.resolve(UserRepository).findById({ id: userId })
+    } catch (err) {
+        return null
     }
 }

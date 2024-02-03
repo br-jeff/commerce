@@ -6,6 +6,12 @@ type AcessTokenData = {
     username: string
 }
 
+type VerifyToken = {
+    user: { id: string, username: string },
+    iat: number,
+    exp: number
+}
+
 export class JWTProvider {
     createAcessToken(data: AcessTokenData) {
         const payload = {
@@ -19,8 +25,8 @@ export class JWTProvider {
         )
     }
 
-    verifyToken(token: string) {
-        return verify(token, settings.ACESS_TOKEN_SECRET)
+    verifyToken(token: string): VerifyToken {
+        return verify(token, settings.ACESS_TOKEN_SECRET) as VerifyToken
     }
 
 }

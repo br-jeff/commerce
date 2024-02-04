@@ -17,11 +17,11 @@ export class UserEntity {
 
     email: string
 
-    createdAt: Date
+    createdAt: string
 
-    updatedAt?: Date
+    updatedAt?: string
 
-    deletedAt?: Date
+    deletedAt?: string
 
     userAddress?: UserAddressEntity
 }

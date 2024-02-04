@@ -1,4 +1,4 @@
-import { Authorized, CurrentUser, Get, JsonController, Post } from "routing-controllers";
+import { Authorized, CurrentUser, Delete, Get, JsonController, Param, Post } from "routing-controllers";
 import { OpenAPI } from "routing-controllers-openapi";
 import { injectable } from 'tsyringe'
 
@@ -8,13 +8,16 @@ import { StrictBody, StrictQueryParams } from "../external/web/validator";
 import { CreateProductSchema } from "../domain/schemas/product/create-product-schema";
 import { PaginationSchema } from "../domain/schemas";
 import { UserEntity } from "../domain/entities/user";
+import { DeleteProductUseCase } from "../application/use-case/products/delete-product-use-case";
 
 @JsonController('/product')
 @injectable()
 export class Product {
     constructor(
         private readonly listProductUseCase: ListProductUseCase,
-        private readonly createProductUseCase: CreateProductUseCase
+        private readonly createProductUseCase: CreateProductUseCase,
+        private readonly deleteProductUseCase: DeleteProductUseCase
+
     ) { }
 
     @OpenAPI({
@@ -35,5 +38,15 @@ export class Product {
     @Authorized()
     create(@StrictBody() data: CreateProductSchema, @CurrentUser() user: UserEntity) {
         return this.createProductUseCase.execute({ data, user })
+    }
+
+    @OpenAPI({
+        summary: 'Delete product',
+        description: 'This route delete a product'
+    })
+    @Delete('/:id')
+    @Authorized()
+    delete(@Param('id') id: string, @CurrentUser() user: UserEntity) {
+        return this.deleteProductUseCase.execute({ data: { id, user } })
     }
 }

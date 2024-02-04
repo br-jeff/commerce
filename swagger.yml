@@ -280,6 +280,25 @@ paths:
       tags:
         - Product
       description: This route create a product
+  /product/{id}:
+    delete:
+      operationId: Product.delete
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            pattern: "[^\\/#\\?]+?"
+            type: string
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: Delete product
+      tags:
+        - Product
+      description: This route delete a product
   /register:
     post:
       operationId: User.create

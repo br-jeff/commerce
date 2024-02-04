@@ -9,8 +9,6 @@ import { DiscountModel } from '../../../external/database/models/discount'
 import { InventoryModel } from '../../../external/database/models/inventory'
 import { createDiscount } from '../../../../test/fixtures/create-discounts'
 import { createProduct } from '../../../../test/fixtures/create-product'
-import { createUser } from '../../../../test/fixtures/create-user'
-import { NotFoundError } from 'routing-controllers'
 
 describe('ListProductUseCase', () => {
     test('Should list product', async () => {

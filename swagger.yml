@@ -237,6 +237,31 @@ paths:
       tags:
         - Health
       description: This is to check if server is running
+  /order:
+    get:
+      operationId: Product.list
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            minimum: 1
+            type: number
+        - in: query
+          name: size
+          required: true
+          schema:
+            type: number
+            minimum: 1
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: List orders
+      tags:
+        - Product
+      description: This route list orders
   /product:
     get:
       operationId: Product.listProducts

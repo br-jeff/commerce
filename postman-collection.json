@@ -10,13 +10,62 @@
 			"name": "product",
 			"item": [
 				{
-					"name": "product",
+					"name": "product (autologin admin)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var requestConfig = {",
+									"    method: 'POST',",
+									"    url: 'localhost:8080/login',",
+									"    headers: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: {",
+									"            \"username\": \"admin\",",
+									"            \"password\": \"password123\"",
+									"            } ,",
+									"        options: {",
+									"            raw: {",
+									"                language: 'json'",
+									"            }",
+									"     }",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(requestConfig, function (error, response) {",
+									"    if (response && response.code === 200) {",
+									"        var responseData = response.json();",
+									"        console.log({  responseData })",
+									"        var token = responseData.acessToken;",
+									"        pm.variables.set(\"tokenbr-jeff\", `Basic ${token}`)",
+									"",
+									"         pm.request.headers.upsert({",
+									"            key: 'Authorization',",
+									"            value: `Barear ${token}`",
+									"           //  value: `Basic ${Buffer.from(token, 'base64').toString('ascii')}`",
+									"        });",
+									"",
+									"        console.log('Token obtido com sucesso:', token);",
+									"    } else {",
+									"        console.error('Falha ao obter o token. Código de resposta:', response ? response.code : 'Resposta nula ou indefinida');",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"teste  name\",\n    \"price\": 123,\n    \"descr\": \"Product name teste\",\n    \"sku\": \"23432\",\n    \"categoryId\": \"51b42a22-05c6-4a3d-a8b6-96d63ad5dd59\",\n    \"inventoryId\": \"0b80e7b4-cebf-45d8-a2a2-56767a821bc2\"\n \n}",
+							"raw": "{\n    \"name\": \"teste  name\",\n    \"price\": 123,\n    \"descr\": \"Product name teste\",\n    \"sku\": \"23432\",\n    \"categoryId\": \"51b42a22-05c6-4a3d-a8b6-96d63ad5dd59\",\n    \"inventoryId\": \"0b80e7b4-cebf-45d8-a2a2-56767a821bc2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -37,7 +86,86 @@
 					"response": []
 				},
 				{
+					"name": "product (autologin admin)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var requestConfig = {",
+									"    method: 'POST',",
+									"    url: 'localhost:8080/login',",
+									"    headers: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: {",
+									"            \"username\": \"admin\",",
+									"            \"password\": \"password123\"",
+									"            } ,",
+									"        options: {",
+									"            raw: {",
+									"                language: 'json'",
+									"            }",
+									"     }",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(requestConfig, function (error, response) {",
+									"    if (response && response.code === 200) {",
+									"        var responseData = response.json();",
+									"        console.log({  responseData })",
+									"        var token = responseData.acessToken;",
+									"        pm.variables.set(\"tokenbr-jeff\", `Basic ${token}`)",
+									"",
+									"         pm.request.headers.upsert({",
+									"            key: 'Authorization',",
+									"            value: `Barear ${token}`",
+									"           //  value: `Basic ${Buffer.from(token, 'base64').toString('ascii')}`",
+									"        });",
+									"",
+									"        console.log('Token obtido com sucesso:', token);",
+									"    } else {",
+									"        console.error('Falha ao obter o token. Código de resposta:', response ? response.code : 'Resposta nula ou indefinida');",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/product/d54bf2f4-74b8-4fb6-948f-f63498d38d80",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"d54bf2f4-74b8-4fb6-948f-f63498d38d80"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "product",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -123,7 +251,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"jefferson\",\n    \"firstName\": \"jefferson\",\n    \"lastName\": \"ferreira\",\n    \"telephone\": \"111111111\",\n    \"mobile\": \"111111111\",\n    \"password\": \"senha123\",\n    \"email\": \"dasdsad@dasdad4s.com\",\n    \"userAddress\": {\n        \"addressLine1\": \"name street one\",\n        \"addressLine2\": \"name street two\",\n        \"city\": \"São Paulo\",\n        \"postalCode\": \"0123490\",\n        \"country\": \"Brazil\"\n    }\n}",
+							"raw": "{\n    \"username\": \"jefferson2\",\n    \"firstName\": \"jefferson\",\n    \"lastName\": \"ferreira\",\n    \"telephone\": \"111111111\",\n    \"mobile\": \"111111111\",\n    \"password\": \"senha123\",\n    \"email\": \"dasdsad@dasdad43s.com\",\n    \"userAddress\": {\n        \"addressLine1\": \"name street one\",\n        \"addressLine2\": \"name street two\",\n        \"city\": \"São Paulo\",\n        \"postalCode\": \"0123490\",\n        \"country\": \"Brazil\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,7 +304,7 @@
 			"name": "address",
 			"item": [
 				{
-					"name": "address ( with autologin)",
+					"name": "address (autologin)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -263,7 +391,7 @@
 					"response": []
 				},
 				{
-					"name": "address ( with autologin)",
+					"name": "address (autologin)",
 					"event": [
 						{
 							"listen": "prerequest",

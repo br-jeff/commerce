@@ -17,7 +17,6 @@ export class Product {
         private readonly listProductUseCase: ListProductUseCase,
         private readonly createProductUseCase: CreateProductUseCase,
         private readonly deleteProductUseCase: DeleteProductUseCase
-
     ) { }
 
     @OpenAPI({

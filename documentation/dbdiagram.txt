@@ -1,0 +1,143 @@
+// Use DBML to define your database structure
+// Docs https//dbml.dbdiagram.io/docs
+
+Table products_category {
+    id string
+    name string
+    descr string
+    created_at Date
+    deleted_at Date
+}
+
+Table products_inventory {
+    id string
+    quantity number
+    created_at Date
+    deleted_at Date
+}
+
+Table discounts {
+    id string
+    name string
+    descr string
+    discount_percent number
+    active boolean
+    created_at string
+    deleted_at string
+}
+
+Table products {
+    id string
+    name string
+    descr string
+    category_id string
+    inventory_id string
+    price number
+    sku string
+    discount_id string
+    created_at string
+    updated_at string
+    deleted_at string
+}
+
+
+Table users {
+    id string
+    username string
+    first_name string
+    last_name string
+    telephone string
+    mobile string
+    password string
+    email string
+    created_at string
+    updated_at string
+    deleted_at string
+
+}
+
+Table users_address {
+    id string
+    user_id string
+    addressLine1 string
+    addressLine2 string
+    city string
+    postal_code string
+    country string
+    created_at Date
+    deleted_at Date
+}
+
+Table payments {
+    id string
+    orderId string
+    amount number
+    provider string
+    status string
+    created_at Date
+    deleted_at Date
+}
+
+Table orders {
+    id string
+    user_id string
+    payment_id string
+    total number
+    created_at string
+    updated_at string
+    deleted_at string
+}
+
+Table order_items {
+    id string
+    order_id string
+    product_id string
+    quantity number
+    created_at string
+    updated_at string
+    deleted_at string
+}
+
+
+Table users_payments {
+    id string
+    user_id string
+    payment_type string
+    provider string
+    account_no number
+    expiry Date
+    created_at Date
+    deleted_at Date
+}
+
+Ref: products.category_id < products_category.id 
+Ref: products.inventory_id < products_inventory.id 
+
+Ref: users_address.user_id > users.id
+
+Ref: orders.user_id < users.id
+Ref: orders.payment_id < payments.id
+
+Ref: order_items.order_id < orders.id
+Ref: order_items.product_id < products.id
+
+Ref: users_payments.user_id < users.id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ To start a project, you should follow the `Requirements` section and begin by ru
 docker compose up
 ```
 
-you can import postman-collection.json on this project.
+You can make a download of postaman collection inside of documentation folder.
 
 ## Requirements
 

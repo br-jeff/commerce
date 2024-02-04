@@ -6,15 +6,17 @@ This project is a simple e-commerce application. You can access the API document
 
 Default port will be 8080
 
+![Diagram](documentation/diagram.png)
+
 To start a project, you should follow the `Requirements` section and begin by running:
 
 ```bash
 docker compose up
 ```
 
-You can make a download of postaman collection inside of documentation folder.
-
 ## Requirements
+
+You can make a download of postaman collection inside of documentation folder.
 
 Before you get started with this project, please make sure you have the following prerequisites:
 

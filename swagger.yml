@@ -47,6 +47,21 @@ components:
         - city
         - postalCode
         - country
+    CreateOrderSchema:
+      properties:
+        usersPayments:
+          $ref: "#/components/schemas/Array"
+          type: object
+          minProperties: 1
+        orderItems:
+          $ref: "#/components/schemas/Object"
+          items: {}
+          minItems: 1
+          type: array
+      type: object
+      required:
+        - usersPayments
+        - orderItems
     CreateProductSchema:
       properties:
         name:
@@ -116,6 +131,16 @@ components:
       required:
         - username
         - password
+    OrderItemsSchema:
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: number
+      type: object
+      required:
+        - productId
+        - quantity
     PaginationSchema:
       properties:
         page:
@@ -147,6 +172,22 @@ components:
         - city
         - postalCode
         - country
+    UsersPaymentsSchema:
+      properties:
+        paymentType:
+          type: string
+        provider:
+          type: string
+        accountNo:
+          type: number
+        expiry:
+          type: string
+      type: object
+      required:
+        - paymentType
+        - provider
+        - accountNo
+        - expiry
   securitySchemes:
     bearerAuth:
       scheme: bearer
@@ -262,6 +303,24 @@ paths:
       tags:
         - Product
       description: This route list orders
+    post:
+      operationId: Product.create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderSchema"
+        description: CreateOrderSchema
+        required: false
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Successful response
+      summary: create orders
+      tags:
+        - Product
+      description: This route create orders
   /product:
     get:
       operationId: Product.listProducts

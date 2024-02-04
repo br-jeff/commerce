@@ -1,21 +1,18 @@
 import { Knex } from 'knex'
 
-const tableName = 'orders'
+const tableName = 'payments'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary()
         table
-            .uuid('user_id')
-            .references('users.id')
+            .uuid('order_id')
+            .references('orders.id')
             .notNullable()
             .index()
 
-        table
-            .uuid('payment_id')
-            .references('payments.id')
-            .notNullable()
-            .index()
-        table.decimal('total').notNullable()
+        table.integer('amount').notNullable()
+        table.string('provider').notNullable()
+        table.string('status').notNullable()
         table.timestamps({
             defaultToNow: true,
             useCamelCase: false,

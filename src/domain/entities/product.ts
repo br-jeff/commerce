@@ -1,4 +1,5 @@
 import { CategoryEntity } from "./category"
+import { DiscountEntity } from "./discount"
 import { InventoryEntity } from "./inventory"
 
 export class ProductEntity {
@@ -27,4 +28,6 @@ export class ProductEntity {
     category?: CategoryEntity
 
     inventory?: InventoryEntity
+
+    discount?: DiscountEntity
 }

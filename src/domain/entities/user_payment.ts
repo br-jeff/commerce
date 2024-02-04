@@ -1,6 +1,3 @@
-import { CategoryEntity } from "./category"
-import { InventoryEntity } from "./inventory"
-
 export class UserPaymentEntity {
     id: string
 

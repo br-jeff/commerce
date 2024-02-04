@@ -1,5 +1,5 @@
+import { PaymentEntity } from "./payments"
 import { UserEntity } from "./user"
-import { UserPaymentEntity } from "./user_payment"
 
 export class OrderEntity {
     id: string
@@ -18,5 +18,5 @@ export class OrderEntity {
 
     user?: UserEntity
 
-    payment?: UserPaymentEntity
+    payment?: PaymentEntity
 }

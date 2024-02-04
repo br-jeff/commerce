@@ -1,4 +1,3 @@
-
 import { OrderEntity } from "./order"
 
 export class PaymentEntity {

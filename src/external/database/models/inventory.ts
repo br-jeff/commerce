@@ -7,7 +7,7 @@ settings.staticsStrategy = 'proxy';
 
 export class InventoryModel extends Mixin(InventoryEntity, Model) {
     static get tableName() {
-        return 'products_inventory'
+        return 'products_inventories'
     }
 
     $beforeInsert() {

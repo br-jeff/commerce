@@ -16,7 +16,7 @@ export async function up(knex: Knex): Promise<void> {
             .index()
         table
             .uuid('inventory_id')
-            .references('products_inventory.id')
+            .references('products_inventories.id')
             .notNullable()
             .onDelete('CASCADE')
             .index()

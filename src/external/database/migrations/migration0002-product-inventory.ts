@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
 
-const tableName = 'products_inventory'
+const tableName = 'products_inventories'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary()

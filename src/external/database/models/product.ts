@@ -23,7 +23,6 @@ export class ProductModel extends Mixin(ProductEntity, Model) {
         }
     }
 
-
     $beforeInsert() {
         if (!this.id) {
             this.id = randomUUID()

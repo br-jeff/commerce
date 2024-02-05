@@ -6,6 +6,10 @@ import { UserAddressEntity } from '../../entities/user_address'
 export class UserSerializer {
     @Expose()
     @IsString()
+    id: string
+
+    @Expose()
+    @IsString()
     username: string
 
     @Expose()

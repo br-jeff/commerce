@@ -38,4 +38,7 @@ class UserPaymentSchema {
 
     @IsString()
     expiry: string
+
+    @IsUUID()
+    userAddressId: string
 }

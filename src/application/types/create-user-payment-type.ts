@@ -3,4 +3,5 @@ export type CreateUserPaymentType = {
     provider: string
     accountNo: number
     expiry: string
+    userAddressId: string
 }

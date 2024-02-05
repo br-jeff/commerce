@@ -41,8 +41,6 @@ export class OrderModel extends Mixin(OrderEntity, Model) {
         }
     }
 
-
-
     $beforeInsert() {
         if (!this.id) {
             this.id = randomUUID()

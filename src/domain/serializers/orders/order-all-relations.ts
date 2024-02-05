@@ -6,7 +6,17 @@ import { PaymentSerializer } from '../payment'
 import { OrderItemsEntity } from '../../entities/order-items'
 import { OrderItemsSerializer } from '../order-items'
 
-@Exclude()
+export class ListOrdersSerializer {
+    @ValidateNested()
+    @Type(() => OrderSerializer)
+    @Expose()
+    results: Partial<OrderItemsEntity>[]
+
+    @Expose()
+    @IsNumber()
+    total: number
+}
+
 export class OrderSerializer {
     @Expose()
     @IsUUID()

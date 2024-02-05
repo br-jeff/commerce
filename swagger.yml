@@ -1,7 +1,118 @@
 components:
   schemas:
+    ListOrdersSerializer:
+      properties:
+        results:
+          $ref: "#/components/schemas/Array"
+        total:
+          type: number
+      type: object
+      required:
+        - results
+        - total
+    OrderItemsSerializer:
+      properties:
+        id:
+          format: uuid
+          type: string
+        orderId:
+          format: uuid
+          type: string
+        productId:
+          format: uuid
+          type: string
+        quantity:
+          type: number
+        product:
+          $ref: "#/components/schemas/Object"
+          type: object
+          not:
+            type: "null"
+      type: object
+      required:
+        - id
+        - orderId
+        - productId
+        - quantity
+        - product
+    OrderSerializer:
+      properties:
+        id:
+          format: uuid
+          type: string
+        total:
+          type: number
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        user:
+          $ref: "#/components/schemas/Object"
+          type: object
+          minProperties: 1
+          not:
+            type: "null"
+        payment:
+          $ref: "#/components/schemas/Object"
+          type: object
+          minProperties: 1
+          not:
+            type: "null"
+        orderItems:
+          $ref: "#/components/schemas/Array"
+      type: object
+      required:
+        - id
+        - total
+        - createdAt
+        - updatedAt
+        - user
+        - payment
+        - orderItems
+    PaymentSerializer:
+      properties:
+        id:
+          format: uuid
+          type: string
+        amount:
+          type: number
+        provider:
+          type: string
+        status:
+          type: string
+      type: object
+      required:
+        - id
+        - amount
+        - provider
+        - status
+    ProductRelationsSerializer:
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          type: string
+        descr:
+          type: string
+        price:
+          type: number
+        sku:
+          type: string
+        discountId:
+          type: number
+      type: object
+      required:
+        - id
+        - name
+        - descr
+        - price
+        - sku
+        - discountId
     UserSerializer:
       properties:
+        id:
+          type: string
         username:
           type: string
         firstName:
@@ -22,6 +133,7 @@ components:
             type: "null"
       type: object
       required:
+        - id
         - username
         - firstName
         - lastName
@@ -183,12 +295,16 @@ components:
           type: number
         expiry:
           type: string
+        userAddressId:
+          format: uuid
+          type: string
       type: object
       required:
         - paymentType
         - provider
         - accountNo
         - expiry
+        - userAddressId
   securitySchemes:
     bearerAuth:
       scheme: bearer
@@ -298,8 +414,10 @@ paths:
       responses:
         "200":
           content:
-            application/json: {}
-          description: Successful response
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListOrdersSerializer"
+          description: ""
       summary: List orders
       tags:
         - Product
@@ -316,8 +434,10 @@ paths:
       responses:
         "200":
           content:
-            application/json: {}
-          description: Successful response
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSerializer"
+          description: ""
       summary: create orders
       tags:
         - Product

@@ -8,7 +8,7 @@ import { BadRequestError } from "routing-controllers";
 import { CreateOrderItemsType } from "../../types/create-order-items-type";
 
 @injectable()
-export class AllItemsValidationUseCase {
+export class ItemsDetailsUseCase {
     constructor(
         private readonly productRepository: ProductRepository) { }
 
@@ -25,7 +25,6 @@ export class AllItemsValidationUseCase {
             if (items.quantity > product.inventory.quantity) {
                 throw new BadRequestError(`we just have ${product.inventory.quantity} of ${product.name}`)
             }
-
         }
 
         return itemsDetails

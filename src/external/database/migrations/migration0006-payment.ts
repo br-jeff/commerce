@@ -4,7 +4,7 @@ const tableName = 'payments'
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(tableName, (table) => {
         table.uuid('id').primary()
-        table.integer('amount').notNullable()
+        table.decimal('amount').notNullable()
         table.string('provider').notNullable()
         table.string('status').notNullable()
         table.timestamps({

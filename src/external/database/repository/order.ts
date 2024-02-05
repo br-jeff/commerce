@@ -21,10 +21,17 @@ export class OrderRepository {
         const { page, size } = pagination
         return OrderModel
             .query(trx)
-            .withGraphJoined('[user, payment, orderItems]')
+            .withGraphJoined('[user, payment, orderItems.[product]]')
             .modify((builder) => {
                 builder.page(page - 1, size)
             })
         // .where(filters)
+    }
+
+    async findById({ id, trx }: { id: string, trx?: Transaction }) {
+        return OrderModel
+            .query(trx)
+            .withGraphJoined('[user, payment, orderItems.[product]]')
+            .findById(id)
     }
 }

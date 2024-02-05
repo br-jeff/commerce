@@ -482,6 +482,115 @@
 			]
 		},
 		{
+			"name": "order",
+			"item": [
+				{
+					"name": "order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/order?size=12&page=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "12"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order (Auto login)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var requestConfig = {",
+									"    method: 'POST',",
+									"    url: 'localhost:8080/login',",
+									"    headers: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: {",
+									"            \"username\": \"admin\",",
+									"            \"password\": \"password123\"",
+									"            } ,",
+									"        options: {",
+									"            raw: {",
+									"                language: 'json'",
+									"            }",
+									"     }",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(requestConfig, function (error, response) {",
+									"    if (response && response.code === 200) {",
+									"        var responseData = response.json();",
+									"        console.log({  responseData })",
+									"        var token = responseData.acessToken;",
+									"        pm.variables.set(\"tokenbr-jeff\", `Basic ${token}`)",
+									"",
+									"         pm.request.headers.upsert({",
+									"            key: 'Authorization',",
+									"            value: `Barear ${token}`",
+									"           //  value: `Basic ${Buffer.from(token, 'base64').toString('ascii')}`",
+									"        });",
+									"",
+									"        console.log('Token obtido com sucesso:', token);",
+									"    } else {",
+									"        console.error('Falha ao obter o token. Código de resposta:', response ? response.code : 'Resposta nula ou indefinida');",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderItems\": [\n        {\n            \"productId\": \"1a5a6af0-6a6d-4a0f-a694-a5c5198e9559\",\n            \"quantity\": 5\n        },\n           {\n            \"productId\": \"84d9fb3a-38c1-451d-9e17-c27a2a883981\",\n            \"quantity\": 1\n        }\n    ],\n    \"usersPayments\": {\n        \"userAddressId\": \"6cbcd72b-274c-4a87-81b0-b58b0255ffec\",\n        \"paymentType\": \"credit\",\n        \"provider\": \"adyen\",\n        \"accountNo\": 12344,\n        \"expiry\": \"2030/12\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "health",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true

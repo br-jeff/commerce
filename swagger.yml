@@ -50,11 +50,11 @@ components:
     CreateOrderSchema:
       properties:
         usersPayments:
-          $ref: "#/components/schemas/Array"
+          $ref: "#/components/schemas/Object"
           type: object
           minProperties: 1
         orderItems:
-          $ref: "#/components/schemas/Object"
+          $ref: "#/components/schemas/Array"
           items: {}
           minItems: 1
           type: array
@@ -134,6 +134,7 @@ components:
     OrderItemsSchema:
       properties:
         productId:
+          format: uuid
           type: string
         quantity:
           type: number
@@ -172,7 +173,7 @@ components:
         - city
         - postalCode
         - country
-    UsersPaymentsSchema:
+    UserPaymentSchema:
       properties:
         paymentType:
           type: string

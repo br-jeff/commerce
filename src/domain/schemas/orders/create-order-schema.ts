@@ -1,30 +1,32 @@
 
 
 import { Type } from "class-transformer"
-import { ArrayMinSize, ArrayNotEmpty, IsArray, IsNotEmptyObject, IsNumber, IsObject, IsString, ValidateNested } from "class-validator"
+import { ArrayMinSize, IsNotEmptyObject, IsNumber, IsObject, IsString, IsUUID, ValidateNested } from "class-validator"
+import { CreateUserPaymentType } from "../../../application/types/create-user-payment-type"
+import { CreateOrderItemsType } from "../../../application/types/create-order-items-type"
 
 export class CreateOrderSchema {
     @IsObject()
     @IsNotEmptyObject()
     @ValidateNested()
-    @Type(() => UsersPaymentsSchema)
-    usersPayments: any[]
+    @Type(() => UserPaymentSchema)
+    usersPayments: CreateUserPaymentType
 
     @ArrayMinSize(1)
     @ValidateNested()
     @Type(() => OrderItemsSchema)
-    orderItems: any
+    orderItems: CreateOrderItemsType[]
 }
 
 class OrderItemsSchema {
-    @IsString()
+    @IsUUID()
     productId: string
 
     @IsNumber()
     quantity: number
 }
 
-class UsersPaymentsSchema {
+class UserPaymentSchema {
     @IsString()
     paymentType: string
 

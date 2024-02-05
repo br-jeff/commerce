@@ -21,6 +21,7 @@ export class OrderRepository {
         const { page, size } = pagination
         return OrderModel
             .query(trx)
+            .withGraphJoined('[user, payment, orderItems]')
             .modify((builder) => {
                 builder.page(page - 1, size)
             })

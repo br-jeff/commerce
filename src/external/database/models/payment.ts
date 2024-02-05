@@ -4,7 +4,7 @@ import { randomUUID } from "crypto";
 import { PaymentEntity } from "../../../domain/entities/payments";
 settings.staticsStrategy = 'proxy';
 
-export class UserAddressModel extends Mixin(PaymentEntity, Model) {
+export class PaymentModel extends Mixin(PaymentEntity, Model) {
     static get tableName() {
         return 'payments'
     }

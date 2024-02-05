@@ -10,7 +10,7 @@ export class OrderItemsEntity {
 
     quantity: number
 
-    createdAt: string
+    createdAt?: string
 
     updatedAt?: string
 

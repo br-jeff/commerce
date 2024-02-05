@@ -10,7 +10,7 @@ export class OrderEntity {
 
     total: number
 
-    createdAt: string
+    createdAt?: string
 
     updatedAt?: string
 

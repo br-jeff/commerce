@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
             .notNullable()
             .index()
         table
-            .uuid('prudct_id')
+            .uuid('product_id')
             .references('products.id')
             .notNullable()
             .index()

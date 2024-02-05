@@ -3,13 +3,13 @@ export class UserPaymentEntity {
 
     userId: string
 
-    payment_type: string
+    paymentType: string
 
     provider: string
 
-    account_no: number
+    accountNo: number
 
-    expiry: Date
+    expiry: string
 
     createdAt: Date
 
